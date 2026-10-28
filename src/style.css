@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colour tokens as RGB triplets so Tailwind opacity modifiers work.
+   Management / IC series colours were checked for colour-blind separation
+   in both themes. */
+:root {
+  color-scheme: light;
+  --canvas: 237 240 243;
+  --surface: 255 255 255;
+  --sunken: 245 247 249;
+  --ink: 23 32 43;
+  --ink-2: 77 88 102;
+  --ink-3: 107 117 130;
+  --line: 220 225 231;
+  --line-strong: 195 202 211;
+  --mgmt: 235 104 52;
+  --ic: 42 120 214;
+  --focus: 42 120 214;
+  --warn: 180 83 9;
+  --dot: 23 32 43 / 0.09;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --canvas: 15 20 25;
+    --surface: 23 29 36;
+    --sunken: 29 36 44;
+    --ink: 232 236 240;
+    --ink-2: 174 183 194;
+    --ink-3: 137 148 161;
+    --line: 42 51 61;
+    --line-strong: 58 69 80;
+    --mgmt: 224 97 45;
+    --ic: 74 144 232;
+    --focus: 74 144 232;
+    --warn: 245 158 11;
+    --dot: 232 236 240 / 0.07;
+  }
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  @apply bg-canvas text-ink font-sans antialiased;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Keyboard focus that is visible on every surface. */
+:focus-visible {
+  outline: 2px solid rgb(var(--focus));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgb(var(--dot)) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Cards revealed by an expand grow out of their parent. */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+}
+.card-enter {
+  animation: card-in 260ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter {
+    animation: none;
+  }
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
